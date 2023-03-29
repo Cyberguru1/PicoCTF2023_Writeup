@@ -67,6 +67,59 @@ cool, we got our flag
 
 
 
+# Ready Gladiator 2 (400 points)
+<hr>
+
+This challenge focuses on wining every round in a CoreWars game, So the plan is to find a suitable strategy to make our warrior win every round in the game
+
+One of the ways is the use a Bomber script. A bomber randomly drops complex bombs designed to damage or stun the opponent. So i found this blog online that has multiple strategies of wining an imp game
+
+Link: https://corewar.co.uk/strategy.htm
+
+![image](https://user-images.githubusercontent.com/67879936/228682023-04c75e21-43cf-49bd-a57a-e3159446845f.png)
+tips for winning every round in an imp game
+
+So i tried this particular bomber to test if i can win all the rounds, because the script looks simple and short. Here is the link below 
+
+Link: https://corewar.co.uk/heremscimitar.htm
+
+Copy the code from the site and paste it into your imp.red file. 
+
+```
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ nano imp.red
+                                                                                                                                                                                                
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ cat imp.red  
+;redcode-94
+;name Herem/Scimitar
+;author A.Ivner,P.Kline
+;strategy bomber
+;macro
+step     equ   27
+count    equ   1470
+
+         jmp   clr
+start    mov   sb,@st
+st       mov   {100,*cnt-(2*count*step)-1
+         add   bmb,st
+cnt      djn   start,#count-1
+sb       spl   #step,0
+clr      mov   bmb,>-13
+         djn.f clr,{-14
+  for 22
+         dat   0,0
+  rof
+         dat   <4,step+step
+bmb      dat   <4,step+step
+         end   start
+```
+Run the imp file against the server using the nc listener provided by PicoCTF
+
+>command:```nc saturn.picoctf.net 56171 < imp.red```
+
+
+
 # Reverse (100 points)
 <hr>
 
