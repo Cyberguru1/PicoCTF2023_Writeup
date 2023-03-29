@@ -1,4 +1,5 @@
-# VM0
+# VM0 (100 points)
+<hr>
 
 <p>The task involves a Collada file, the first step I took was to open the file in Three.js, an online emulator for 3D designs. Upon loading the file,we got this </p>
 <hr>
@@ -24,3 +25,46 @@
 
 ![](files/vm0/image3.png)
 
+
+
+# Ready Gladiator 0 (100 points)
+<hr>
+
+![](files/RG0/RG0.png)
+
+<p>This challange is about the CodeWars warriror, in this task they need us to make a warrior that always loses with not ties</p>
+
+<p>Simple solution was to send `end` to the terminal after connecting to the instance throws us back our flag!! (<_>)</p>
+<hr>
+
+![](files/RG0/Flag_RG0.png)
+
+# Ready Gladiator 1 (200 points)
+<hr>
+
+
+
+# Reverse (100 points)
+<hr>
+
+![](files/reverse/reverse.png)
+
+<p>This was a basic reverse engineering challenge, as usual runing strings on the file and greping for keyword `pico` gave us the flag!! (<_>)</p>
+
+![](files/reverse/reverse_flag.png)
+
+# Safe Opener 2 (100 points)
+<hr>
+
+![](files/safeopener/SafeOpener2.png)
+
+<p>Doing the same operation as the previous challenge we got our flag</p>
+
+![](files/safeopener/safeopener_Flag.png)
+
+# timer (100 points)
+<hr>
+
+![](files/timer/timer.png)
+
+<p>This an andriod challenge, looks simillar to the apk series in the picoGym, first thing was to unpack the apk file downloaded with 
