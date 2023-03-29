@@ -25,7 +25,7 @@
 
 ![](files/vm0/image3.png)
 
-
+------------------------------
 
 # Ready Gladiator 0 (100 points)
 <hr>
