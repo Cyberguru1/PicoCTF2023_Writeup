@@ -77,6 +77,7 @@ One of the ways is the use a Bomber script. A bomber randomly drops complex bomb
 Link: https://corewar.co.uk/strategy.htm
 
 ![image](https://user-images.githubusercontent.com/67879936/228682023-04c75e21-43cf-49bd-a57a-e3159446845f.png)
+
 tips for winning every round in an imp game
 
 So i tried this particular bomber to test if i can win all the rounds, because the script looks simple and short. Here is the link below 
