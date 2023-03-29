@@ -102,7 +102,7 @@ count    equ   1470
 
          jmp   clr
 start    mov   sb,@st
-st       mov   {100,*cnt-(2*count*step)-1
+st       mov   {100,cnt-(2count*step)-1
          add   bmb,st
 cnt      djn   start,#count-1
 sb       spl   #step,0
@@ -113,12 +113,80 @@ clr      mov   bmb,>-13
   rof
          dat   <4,step+step
 bmb      dat   <4,step+step
-         end   start
+            start
+end
 ```
 Run the imp file against the server using the nc listener provided by PicoCTF
 
->command:```nc saturn.picoctf.net 56171 < imp.red```
+>command:```nc saturn.picoctf.net 64120 < imp.red```
 
+```
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ nc saturn.picoctf.net 64120 < imp.red
+;redcode-94
+;name Herem/Scimitar
+;author A.Ivner,P.Kline
+;strategy bomber
+;macro
+step     equ   27
+count    equ   1470
+
+         jmp   clr
+start    mov   sb,@st
+st       mov   {100,cnt-(2count*step)-1
+         add   bmb,st
+cnt      djn   start,#count-1
+sb       spl   #step,0
+clr      mov   bmb,>-13
+         djn.f clr,{-14
+  for 22
+         dat   0,0
+  rof
+         dat   <4,step+step
+bmb      dat   <4,step+step
+            start
+end
+Submit your warrior: (enter 'end' when done)
+
+Warrior1:
+;redcode-94
+;name Herem/Scimitar
+;author A.Ivner,P.Kline
+;strategy bomber
+;macro
+step     equ   27
+count    equ   1470
+
+         jmp   clr
+start    mov   sb,@st
+st       mov   {100,cnt-(2count*step)-1
+         add   bmb,st
+cnt      djn   start,#count-1
+sb       spl   #step,0
+clr      mov   bmb,>-13
+         djn.f clr,{-14
+  for 22
+         dat   0,0
+  rof
+         dat   <4,step+step
+bmb      dat   <4,step+step
+            start
+end
+
+Warning in line 22: '            start'
+        Ignored, redefinition of label 'start'
+Warning:
+        Missing ';assert'. Warrior may not work with the current setting
+Number of warnings: 2
+
+Rounds: 100
+Warrior 1 wins: 100
+Warrior 2 wins: 0
+Ties: 0
+You did it!
+picoCTF{d3m0n_3xpung3r_ed173f56}
+```
+cool, we got our flag
 
 
 # Reverse (100 points)
