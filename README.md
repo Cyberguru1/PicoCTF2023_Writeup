@@ -67,4 +67,16 @@
 
 ![](files/timer/timer.png)
 
-<p>This an andriod challenge, looks simillar to the apk series in the picoGym, first thing was to unpack the apk file downloaded with 
+<p>This an andriod challenge, looks simillar to the apk series in the picoGym, first thing was to unpack the apk file downloaded with <p>
+
+# No way out (200 points)
+<hr>
+
+![](files/NoWayOut/nowayout.png)
+
+Finaly!!, some 3D action game for reversing, this a 3D game made with Unity, downloading the file from [here](https://artifacts.picoctf.net/c/285/win.zip) and running it we have
+
+![](files/NoWayOut/nowayout1.png)
+
+the goal of the challenge is to Escape and get the flag
+
