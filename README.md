@@ -25,7 +25,30 @@
 
 ![](files/vm0/image3.png)
 
+The driver gear (the bigger one) has 40 teeths, while the driven gear (the smaller one) has 8 teeths. So, if the driver gear makes 1 rotation, the driven gear will make 5 rotations. If you recall we have an input we got from the file we downloaded from the task description.
 
+```
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ ls
+input.txt
+                                                                                                                                                                                                
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ cat input.txt 
+39722847074734820757600524178581224432297292490103996086521425478666370329 
+```
+So, if the input is the number of rotations the driver gear this means the driven gear will make 5 times the rotation of the driver gear. This means the driven gear will make ```198614235373674103788002620892906122161486462450519980432607127393331851645``` number of rotations. This number of rotations for the driven gear is actually encoded. Interesting right?😎
+
+Lets decode this from Decimal to Hex
+
+![image](https://user-images.githubusercontent.com/67879936/228673512-1c6a412a-7838-4d18-88df-fc41272abd3e.png)
+
+Then we convert from Hexadecimal to Text
+
+![image](https://user-images.githubusercontent.com/67879936/228673766-6d7ab372-bc06-4bba-b48b-8c4ba3ae38ee.png)
+
+cool, we got our flag
+
+------------------------------
 
 # Ready Gladiator 0 (100 points)
 <hr>
@@ -42,6 +65,128 @@
 # Ready Gladiator 1 (200 points)
 <hr>
 
+
+
+# Ready Gladiator 2 (400 points)
+<hr>
+
+This challenge focuses on wining every round in a CoreWars game, So the plan is to find a suitable strategy to make our warrior win every round in the game
+
+One of the ways is the use a Bomber script. A bomber randomly drops complex bombs designed to damage or stun the opponent. So i found this blog online that has multiple strategies of wining an imp game
+
+Link: https://corewar.co.uk/strategy.htm
+
+![image](https://user-images.githubusercontent.com/67879936/228682023-04c75e21-43cf-49bd-a57a-e3159446845f.png)
+
+tips for winning every round in an imp game
+
+So i tried this particular bomber to test if i can win all the rounds, because the script looks simple and short. Here is the link below 
+
+Link: https://corewar.co.uk/heremscimitar.htm
+
+Copy the code from the site and paste it into your imp.red file. 
+
+```
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ nano imp.red
+                                                                                                                                                                                                
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ cat imp.red  
+;redcode-94
+;name Herem/Scimitar
+;author A.Ivner,P.Kline
+;strategy bomber
+;macro
+step     equ   27
+count    equ   1470
+
+         jmp   clr
+start    mov   sb,@st
+st       mov   {100,cnt-(2count*step)-1
+         add   bmb,st
+cnt      djn   start,#count-1
+sb       spl   #step,0
+clr      mov   bmb,>-13
+         djn.f clr,{-14
+  for 22
+         dat   0,0
+  rof
+         dat   <4,step+step
+bmb      dat   <4,step+step
+            start
+end
+```
+Run the imp file against the server using the nc listener provided by PicoCTF
+
+>command:```nc saturn.picoctf.net 64120 < imp.red```
+
+```
+┌──(bl4ck4non㉿bl4ck4non)-[~/Downloads/CTF/picoCTF_2023/rev_eng]
+└─$ nc saturn.picoctf.net 64120 < imp.red
+;redcode-94
+;name Herem/Scimitar
+;author A.Ivner,P.Kline
+;strategy bomber
+;macro
+step     equ   27
+count    equ   1470
+
+         jmp   clr
+start    mov   sb,@st
+st       mov   {100,cnt-(2count*step)-1
+         add   bmb,st
+cnt      djn   start,#count-1
+sb       spl   #step,0
+clr      mov   bmb,>-13
+         djn.f clr,{-14
+  for 22
+         dat   0,0
+  rof
+         dat   <4,step+step
+bmb      dat   <4,step+step
+            start
+end
+Submit your warrior: (enter 'end' when done)
+
+Warrior1:
+;redcode-94
+;name Herem/Scimitar
+;author A.Ivner,P.Kline
+;strategy bomber
+;macro
+step     equ   27
+count    equ   1470
+
+         jmp   clr
+start    mov   sb,@st
+st       mov   {100,cnt-(2count*step)-1
+         add   bmb,st
+cnt      djn   start,#count-1
+sb       spl   #step,0
+clr      mov   bmb,>-13
+         djn.f clr,{-14
+  for 22
+         dat   0,0
+  rof
+         dat   <4,step+step
+bmb      dat   <4,step+step
+            start
+end
+
+Warning in line 22: '            start'
+        Ignored, redefinition of label 'start'
+Warning:
+        Missing ';assert'. Warrior may not work with the current setting
+Number of warnings: 2
+
+Rounds: 100
+Warrior 1 wins: 100
+Warrior 2 wins: 0
+Ties: 0
+You did it!
+picoCTF{d3m0n_3xpung3r_ed173f56}
+```
+cool, we got our flag
 
 
 # Reverse (100 points)
