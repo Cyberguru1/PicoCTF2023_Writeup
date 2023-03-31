@@ -21,7 +21,7 @@
 ## VM0 (100 points)
 <hr>
 
-<p>The task involves a Collada file, the first step I took was to open the file in Three.js, an online emulator for 3D designs. Upon loading the file,we got this </p>
+<p>The task involves a Colladae file, the first step I took was to open the file in Three.js, an online emulator for 3D designs. Upon loading the file,we got this </p>
 <hr>
 
 ![](files/vm0/image.png)
@@ -422,3 +422,107 @@ print("Flag bruteforced!!!!!!!!!!!!!!!!!!!!!!!!")
 
 ![](files/power_analysis/power_1.png)
 
+This is the same concept as warmup, but this time around instead of the number of leaked bits, it returns a list for power trace of about 2600K variables, which each differ for the same plaintext, my first approach was to write a script to send alot of plaintext and store the relation of plaintext and traces as a json file
+this is the sample script which sends about 300 plaintext and store the content in a json file
+
+```
+import numpy as np
+from pwn import *
+from Crypto.Util.number import *
+import os
+import sys
+import json
+
+
+ind = 0
+with open('tryout.json', 'w') as f:
+
+    outt = {}
+    count = 0
+    for tnum in range(0, 50000):
+        try:
+            conn = remote("saturn.picoctf.net", sys.argv[1])
+            pt = hex(bytes_to_long(os.urandom(16)))[2:]
+            conn.sendlineafter("hex: ", pt)
+            out = conn.recvuntil("]")
+            conn.close()
+            traces = re.findall('\d+', out.decode())
+            traces = list(map(lambda x: int(x), traces))
+            outt[tnum] = traces
+            count += 1
+            print(count, len(outt))
+            if len(outt) > 301:
+                f.write(json.dumps(outt))
+                print("done")
+                break
+        except Exception as e:
+            conn.close()
+            print(e)
+            continue
+
+```
+after doing so, the traces was plotted and we have this
+
+![](files/power_analysis/power_1_plot.png)
+
+performing some analysis on this image we realized that the 10 peaks represents the end of each rounds, AES has a total of 10, 12, or 14 rounds (depending on the key size, in this case is 10 as indicated from the key size in the challenge description), each consisting of four main operations: SubBytes, ShiftRows, MixColumns, and AddRoundKey. These operations are performed on the data and the round key to create a new block of ciphertext.
+
+This are the opreations
+
+![](files/power_analysis/opreations.png)
+
+what we are interested in is the SubBytes of the first opeartion where the orginal plaintext and the key is first xorred, extracting the first operation and limiting our search space to the SubBytes operation, i wrote a [script](files/power_analysis/pa1.py) to accomplish that
+
+```
+
+hw = [bin(i).count("1") for i in range(0, 256)]
+for bnum in range(14, 16):
+    avg_point = leakage_point[bnum]
+    mean_diffs = np.zeros(256)
+    maxx = 0
+    arr = {}
+    for key in range(0, 256):
+        m1 = []
+        m0 = []
+        for tnum in range(len(conrr)):
+            # pt = hex(bytes_to_long(os.urandom(16)))[2:]
+            # conn = remote("saturn.picoctf.net", sys.argv[1])
+            # conn.sendlineafter("hex: ", pt)
+            # out = conn.recvuntil("]")
+            # conn.close()len()
+            # traces = re.findall('\d+', out.decode())
+            # traces = list(map(lambda x: int(x), traces))
+            pt = conrr[tnum][0]
+            trace = conrr[tnum][1][avg_point]
+            # trace = np.asarray(trace)
+            hyp = Sbox[int(pt[bnum*2:bnum*2 + 2], 16) ^ key]
+            hyp = hw[hyp]
+            #if target bit 1 or or 07
+            if (hyp < threshold):
+                m1.append(trace)
+            else:
+                m0.append(trace)
+            # print(num1, num0)
+        m1_avg = np.asarray(m1).mean(axis=0)
+        m0_avg = np.asarray(m0).mean(axis=0)
+        mean_diffs[key] = np.max(abs(m1_avg - m0_avg))
+        # find the differences btw two means
+        if mean_diffs[key] > maxx:
+            maxx = mean_diffs[key]
+            best_key = key
+    flag += hex(best_key)[2:].zfill(2)
+    for i in range(10):
+        cont = sorted(mean_diffs,reverse=True)[i]
+        print("KEY: ", hex(list(mean_diffs).index(cont))[2:], "Vaule: ", cont)
+    print(flag, "found somoething !!! ______+++++++++!_____%2x"% best_key)
+
+```
+
+
+
+
+Explanation of the script
+
+ The script reads in a JSON file containing the power traces and extracts a subset of the traces. It then performs a loop for each byte of the AES key, using the S-Box and the power traces to try to determine the byte of the key. The script calculates the differences between the means of the power traces for plaintexts that have the same byte in that position and the hypothesized byte value. The byte value with the maximum mean difference is chosen as the likely byte value of the key. The script then outputs the hex representation of the recovered key bytes. The script includes comments that provide some additional context and indicate some code that may have been used in previous iterations but has been commented out in the current version.
+
+ 
