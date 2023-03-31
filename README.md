@@ -528,6 +528,7 @@ Explanation of the script
  ## Power analysis: 1 (400 points)
 <hr>
 ----------------------------------
+
 ![](files/power_analysis/power_2.png)
 
 This is a similar challenge to the previous one but the only constraint here is less number of trace's which in these challenge is limited to 100, i used the same previous script to solve this challenge but i had to vary the threshold and compare the frequency of most occuring keys before we could get the passowrd, after doing that we got our complete flag.!!!!!!!!!! updated [script](files/power_analysis/pa2.py)
