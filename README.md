@@ -531,3 +531,13 @@ Explanation of the script
 ![](files/power_analysis/power_2.png)
 
 This is a similar challenge to the previous one but the only constraint here is less number of trace's which in these challenge is limited to 100, i used the same previous script to solve this challenge but i had to vary the threshold and compare the frequency of most occuring keys before we could get the passowrd, after doing that we got our complete flag.!!!!!!!!!! updated [script](files/power_analysis/pa2.py)
+
+
+
+## Remarks and Cretdits
+I wanted to express my appreciation to PicoCTF team for the challenges you designed for the recent CTF event. They were incredibly well-crafted and challenging, and they helped me improve my reasoning and technical skills. Your challenges pushed me out of my comfort zone and forced me to think creatively and critically, which I believe is the essence of a good CTF challenge. I found the variety of topics and difficulty levels to be well-balanced, and the hints provided were helpful without giving too much away. Overall, I thoroughly enjoyed the experience and felt like I learned a lot from the challenges. Thank you for your hard work and dedication to creating such an excellent event.
+
+
+## Remainning Solutions
+My Team mate [blackAnon](https://github.com/BlackAnon22) solved the other categories of the challegnes
+take a look [here](https://github.com/BlackAnon22/BlackAnon22.github.io/blob/main/posts/CTF%20Competitions/picoCTF_2023.md)
