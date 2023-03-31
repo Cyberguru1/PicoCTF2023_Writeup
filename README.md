@@ -420,6 +420,8 @@ print("Flag bruteforced!!!!!!!!!!!!!!!!!!!!!!!!")
 ## Power analysis: 1 (400 points)
 <hr>
 ------------------------------------
+
+
 ![](files/power_analysis/power_1.png)
 
 This is the same concept as warmup, but this time around instead of the number of leaked bits, it returns a list for power trace of about 2600K variables, which each differ for the same plaintext, my first approach was to write a script to send alot of plaintext and store the relation of plaintext and traces as a json file
