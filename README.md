@@ -525,7 +525,7 @@ Explanation of the script
 
  The script reads in a JSON file containing the power traces and extracts a subset of the traces. It then performs a loop for each byte of the AES key, using the S-Box and the power traces to try to determine the byte of the key. The script calculates the differences between the means of the power traces for plaintexts that have the same byte in that position and the hypothesized byte value. The byte value with the maximum mean difference is chosen as the likely byte value of the key. The script then outputs the hex representation of the recovered key bytes. The script includes comments that provide some additional context and indicate some code that may have been used in previous iterations but has been commented out in the current version.
 
- ## Power analysis: 1 (400 points)
+ ## Power analysis: 2 (500 points)
 <hr>
 ----------------------------------
 
