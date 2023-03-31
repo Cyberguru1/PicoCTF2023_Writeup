@@ -419,7 +419,7 @@ print("Flag bruteforced!!!!!!!!!!!!!!!!!!!!!!!!")
 
 ## Power analysis: 1 (400 points)
 <hr>
-
+------------------------------------
 ![](files/power_analysis/power_1.png)
 
 This is the same concept as warmup, but this time around instead of the number of leaked bits, it returns a list for power trace of about 2600K variables, which each differ for the same plaintext, my first approach was to write a script to send alot of plaintext and store the relation of plaintext and traces as a json file
@@ -525,4 +525,9 @@ Explanation of the script
 
  The script reads in a JSON file containing the power traces and extracts a subset of the traces. It then performs a loop for each byte of the AES key, using the S-Box and the power traces to try to determine the byte of the key. The script calculates the differences between the means of the power traces for plaintexts that have the same byte in that position and the hypothesized byte value. The byte value with the maximum mean difference is chosen as the likely byte value of the key. The script then outputs the hex representation of the recovered key bytes. The script includes comments that provide some additional context and indicate some code that may have been used in previous iterations but has been commented out in the current version.
 
- 
+ ## Power analysis: 1 (400 points)
+<hr>
+----------------------------------
+![](files/power_analysis/power_2.png)
+
+This is a similar challenge to the previous one but the only constraint here is less number of trace's which in these challenge is limited to 100, i used the same previous script to solve this challenge but i had to vary the threshold and compare the frequency of most occuring keys before we could get the passowrd, after doing that we got our complete flag.!!!!!!!!!! updated [script](files/power_analysis/pa2.py)

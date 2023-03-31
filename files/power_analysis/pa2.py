@@ -30,14 +30,17 @@ Sbox = (
     0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16,
 )
 
-with open('trace1.json','r') as f:
-    output = json.loads(f.read())
+# with open('trace2.json', 'r') as f:
+#     ff = f.read()
+#     output = json.loads(ff)
 
-# with open('power2.json', 'r') as f:
-#     output2 = json.loads(f.read())
-
-
-print("current length of traces:", len(output))
+output = {}
+for i in range(1, 4):
+    ind = f"{i}".zfill(2)
+    with open(f"trace{i}.json", 'r') as f:
+        plaintext = f.readline().split(':')[1].strip()
+        power_trace = list(map(int, f.readline().split(':')[1].strip().strip("[").strip("]").split(',')))
+        output.update(json.loads(f.read()))
 
 traces = list(output.values())
 
@@ -50,7 +53,7 @@ targetbyte = 0
 len_t = 2666
 foundkey  = []
 flag = ''
-threshold  = 4
+threshold  = 5 # 4
 hw = [bin(i).count("1") for i in range(0, 256)]
 for bnum in range(16):
     avg_point = leakage_point[bnum]
@@ -91,7 +94,6 @@ for bnum in range(16):
         cont = sorted(mean_diffs,reverse=True)[i]
         print("KEY: ", hex(list(mean_diffs).index(cont))[2:], "Vaule: ", cont)
     print(flag, "found somoething !!! ______+++++++++!_____%2x"% best_key)
- 
 
 
 # v = plot(tra, dontrun=True)
@@ -100,19 +102,19 @@ for bnum in range(16):
 # v.add_horizontal_band(1.0, -1.0)
 # v.add_vertical_ruler(109)
 # v.run()
-fig, ax = plt.subplots(2, figsize=(50, 20))
-# # # i = 0
-for trace in traces:
+# fig, ax = plt.subplots(2,figsize=(50, 20))
+# # # # i = 0
+# for trace in traces:
 
-    ax.plot(trace)
+#     ax[0].plot(trace)
 
-# # for trace2 in traces2:
-# #     ax[1].plot(trace2[:501])
+# # # for trace2 in traces2:
+# # #     ax[1].plot(trace2[:501])
 
-ax.set_xlabel("time")
-ax.set_title("non_nps")
+# ax[0].set_xlabel("time")
+# ax[0].set_title("non_nps")
 
 # # # ax[1].set_xlabel("time")
 # # # ax[1].set_title("nops")
 
-plt.show()
+# plt.show()
