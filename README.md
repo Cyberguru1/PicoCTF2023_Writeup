@@ -17,7 +17,6 @@
 -      SRA (400 points)
 
 
-
 # REVERSE ENGINEERING
 ## VM0 (100 points)
 <hr>
