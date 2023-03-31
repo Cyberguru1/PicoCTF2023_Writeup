@@ -1,3 +1,23 @@
+# Challenges Solved
+## Reverse Engineering
+-      VM0 (100 points)
+-      Ready Gladiator 0 (100 points)
+-      Ready Gladiator 1 (200 points)
+-      Ready Gladiator 2 (400 points)
+-      Reverse (100 points)
+-      Safe Opener 2 (100 points)
+-      timer (100 points)
+-      No way out (200 points)
+
+
+## Cryptography
+-      Power analysis: warmup (200 points)
+-      Power analysis: 1 (400 points)
+-      Power analysis: 2 (500 points)
+-      SRA (400 points)
+
+
+
 # REVERSE ENGINEERING
 ## VM0 (100 points)
 <hr>
@@ -62,10 +82,6 @@ cool, we got our flag
 <hr>
 
 ![](files/RG0/Flag_RG0.png)
-
-## Ready Gladiator 1 (200 points)
-<hr>
-
 
 
 ## Ready Gladiator 2 (400 points)
@@ -189,6 +205,11 @@ picoCTF{d3m0n_3xpung3r_ed173f56}
 ```
 cool, we got our flag
 
+
+## Ready Gladiator 1 (200 points)
+<hr>
+
+We use thesame code as ready gladiator 2 to solve this challenge since the solution need's it to get atleast one win which the code has
 
 ## Reverse (100 points)
 <hr>
@@ -393,4 +414,12 @@ print("Flag bruteforced!!!!!!!!!!!!!!!!!!!!!!!!")
 
 <p> After all 16 iterations over k complete, the final value of the flag string is printed to the console. If the length of the flag is not exactly 32 characters, an assertion error is raised. Otherwise, a success message is printed to the console.
 </p>
-after the script runs for a while it returned our flag.
+
+
+
+
+## Power analysis: 1 (400 points)
+<hr>
+
+![](files/power_analysis/power_1.png)
+
