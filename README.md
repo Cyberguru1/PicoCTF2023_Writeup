@@ -622,5 +622,6 @@ I wanted to express my appreciation to PicoCTF team for the challenges you desig
 
 
 ## Remainning Solutions
-My Team mate [blackAnon](https://github.com/BlackAnon22) solved the other categories of the challegnes
+My amazing team mates [blackAnon](https://github.com/BlackAnon22)  solved the other categories of the challenges
 take a look [here](https://github.com/BlackAnon22/BlackAnon22.github.io/blob/main/posts/CTF%20Competitions/picoCTF_2023.md)
+and [CyberMMA](https://medium.com/@cybermma0/ctf-writeup-picoctf-2023-99ea5d0e28bc)
