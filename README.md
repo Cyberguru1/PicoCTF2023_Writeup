@@ -536,6 +536,86 @@ Explanation of the script
 This is a similar challenge to the previous one but the only constraint here is less number of trace's which in these challenge is limited to 100, i used the same previous script to solve this challenge but i had to vary the threshold and compare the frequency of most occuring keys before we could get the passowrd, after doing that we got our complete flag.!!!!!!!!!! updated [script](files/power_analysis/pa2.py)
 
 
+## SRA (400 points)
+<hr>
+
+![](/files/sra/sra.png)
+
+Downloading the provided script in the challenge descriptin we found out that it's a classic RSA challenge, but this time around we are given our key `d` (envy) and public exponent `e`(sloth), this the script:
+
+```
+pride = "".join(choice(ascii_letters + digits) for _ in range(16))
+
+gluttony = getPrime(128) #p
+greed = getPrime(128)   #q
+lust = gluttony * greed # n
+sloth = 65537 # e
+phi = (gluttony - 1) * (greed - 1)
+envy = inverse(sloth, phi)
+
+)
+print(envy * sloth % phi)
+
+anger = pow(bytes_to_long(pride.encode()), sloth, lust)
+
+print(lust)
+print(f"{anger = }")
+print(f"{envy = }")
+
+
+
+print("vainglory?")
+vainglory = input("> ").strip()
+
+if vainglory == pride:
+    print("Conquered!")
+    with open("/challenge/flag.txt") as f:
+        print(f.read())
+else:
+    print("Hubris!")
+
+```
+let's break down the code
+
+-    The first line generates a random string of 16 characters called "pride" by selecting a random character from the set of ASCII letters and digits 16 times.
+-   The next three lines generate two random prime numbers of 128 bits each and store them in variables "gluttony" and "greed". The product of these two primes is stored in a variable called "lust".
+-    The variable "sloth" is set to the value 65537, which is a commonly used value for the encryption exponent in RSA.
+-    The variable "phi" is set to the value (gluttony-1) * (greed-1), which is used to calculate the decryption exponent.
+-    The variable "envy" is set to the modular inverse of sloth modulo phi, which is the decryption exponent.
+-    The next line prints the value of sloth times envy modulo phi, which should be equal to 1 if the calculation of the decryption exponent was correct.
+-    The variable "anger" is set to the result of raising the encoded bytes of the "pride" string to the power of sloth modulo lust, which is the ciphertext.
+-    The next three lines print the value of the prime number lust, the ciphertext anger, and the decryption exponent envy.
+-    The program then prompts the user to input a string called "vainglory" and compares it to the "pride" string generated at the beginning.
+-    If the input string matches "pride", the program prints "Conquered!" and reads and prints the contents of a flag file.
+-    If the input string does not match "pride", the program prints "Hubris!".
+
+### **Finding our `N`**
+our method of finding the possible vaule of `N` is by finding all the factors of ```d*e-1``` then compute all possible combinations such that the product of all this combination summed with 1 would give us our `N`, this our attack script:
+
+```
+
+fac = [a for a, b in list(factor(d*e-1)) for _ in range(b)]
+for r in range(2, len(ffac)):
+    for i in combinations(fac, r):
+        p = product(i) + 1
+        if p.nbits() != 128 or not is_prime(p):
+            continue
+        m = long_to_bytes(int(pow(c, d, int(p))))
+```
+
+full script [here](files/sra/sra_sol.py)
+Note:  to run this script you need [Sage Math](https://doc.sagemath.org/html/en/installation/index.html)
+
+The script iterates through all possible combinations of factors in "fac" and checks if the resulting number is a prime of 128 bits. If it is not, the script continues with the next combination. If it is a 128-bit prime, the script derives the plaintext message by raising the ciphertext "c" to the power of "d" modulo "p" and converting the resulting integer to bytes using the "long_to_bytes" function from the "Crypto.Util.number" library.
+
+opening our dockerized sage math 
+![](files/sra/sage_docker.png)
+
+running the script for some secs (it's really fast,about 2 secs), sage throws us back our flag
+
+![](files/sra/sage_result.png)
+
+
 
 ## Remarks and Cretdits
 I wanted to express my appreciation to PicoCTF team for the challenges you designed for the recent CTF event. They were incredibly well-crafted and challenging, and they helped me improve my reasoning and technical skills. Your challenges pushed me out of my comfort zone and forced me to think creatively and critically, which I believe is the essence of a good CTF challenge. I found the variety of topics and difficulty levels to be well-balanced, and the hints provided were helpful without giving too much away. Overall, I thoroughly enjoyed the experience and felt like I learned a lot from the challenges. Thank you for your hard work and dedication to creating such an excellent event.
